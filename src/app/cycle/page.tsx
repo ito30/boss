@@ -96,7 +96,7 @@ const CycleWeekly = () => {
 
       <div className="mb-3 mt-4 flex w-full justify-end">
         <div className="mr-auto">
-          <span>Tipe Order: </span>
+          <span>Pilih Siklus: </span>
           <Select
             // value={orderType}
             placeholder="Pilih Siklus"
