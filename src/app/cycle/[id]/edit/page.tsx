@@ -1,16 +1,16 @@
 "use client";
 
-import { POND_DATA } from "@/data/pond";
 import { RoutePaths } from "@/routes/routePaths";
-import { Breadcrumb, Button, Form, FormProps, Input, Select, theme } from "antd";
+import { Breadcrumb, Button, Form, FormProps, Input, theme } from "antd";
 import Link from "next/link";
-import { useMemo, useState } from "react";
 
 const onFinish: FormProps<CycleType>["onFinish"] = (values) => {
   console.log("Success:", values);
 };
 
-const onFinishFailed: FormProps<CycleType>["onFinishFailed"] = (errorInfo) => {
+const onFinishFailed: FormProps<CycleType>["onFinishFailed"] = (
+  errorInfo
+) => {
   console.log("Failed:", errorInfo);
 };
 
@@ -18,17 +18,6 @@ const PondAdd = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const [fishPondId, setFishPondId] = useState<number>();
-
-  const fishPondOptionMemo = useMemo(() => {
-    return POND_DATA == null
-      ? []
-      : POND_DATA.map((pond) => ({
-        id: pond.id,
-        label: pond.name,
-        value: pond.id,
-      }));
-  }, [POND_DATA]);
 
   return (
     <div>
@@ -42,7 +31,7 @@ const PondAdd = () => {
             title: <Link href={RoutePaths.cycle.string()}>Siklus Panen</Link>,
           },
           {
-            title: "Tambah",
+            title: "Edit",
           },
         ]}
       />
@@ -65,34 +54,16 @@ const PondAdd = () => {
           autoComplete="off"
         >
           <Form.Item<CycleType>
-            label="Nama Siklus"
+            label="Nama Siklus Panen"
             name="name"
-            rules={[{ required: true, message: "Masukkan nama siklus panen" }]}
+            rules={[{ required: true, message: "Masukkan nama siklus" }]}
           >
             <Input />
           </Form.Item>
 
-          <Form.Item<CycleType>
-            label="Pilih Kolam"
-            name="fishPondId"
-            rules={[{ required: true, message: "Pilih kolam" }]}
-          >
-            <Select
-              id="shop_ids"
-              style={{ width: "100%" }}
-              placeholder="Pilih kolam"
-              optionLabelProp="label"
-              onChange={(val) => {
-                setFishPondId(val);
-              }}
-              options={fishPondOptionMemo}
-              value={fishPondId}
-            />
-          </Form.Item>
-
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              Tambah
+              Ubah
             </Button>
           </Form.Item>
         </Form>

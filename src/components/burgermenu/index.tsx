@@ -8,6 +8,7 @@ import {
   EnvironmentOutlined,
   CloudSyncOutlined,
   DollarOutlined,
+  CalendarOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { RoutePaths } from "@/routes/routePaths";
@@ -33,17 +34,35 @@ const BurgerMenu = () => {
 
   const items: MenuItem[] = [
     getItem(
-      <Link onClick={() => setOpen(false)} href={RoutePaths.pond.string()}>Kolam</Link>,
+      <Link onClick={() => setOpen(false)} href={RoutePaths.pond.string()}>
+        Kolam
+      </Link>,
       "pond",
       <EnvironmentOutlined />
     ),
+    getItem("Siklus", "cycle", <CloudSyncOutlined />, [
+      getItem(
+        <Link onClick={() => setOpen(false)} href={RoutePaths.cycle.string()}>
+          Siklus Panen
+        </Link>,
+        "weekly-cycle",
+        <CloudSyncOutlined />
+      ),
+      getItem(
+        <Link
+          onClick={() => setOpen(false)}
+          href={RoutePaths.cycleWeekly.string()}
+        >
+          Siklus Pekanan
+        </Link>,
+        "weekly",
+        <CalendarOutlined />
+      ),
+    ]),
     getItem(
-      <Link onClick={() => setOpen(false)} href={RoutePaths.cycle.string()}>Siklus</Link>,
-      "cycle",
-      <CloudSyncOutlined />
-    ),
-    getItem(
-      <Link onClick={() => setOpen(false)} href={RoutePaths.harvest.string()}>Panen</Link>,
+      <Link onClick={() => setOpen(false)} href={RoutePaths.harvest.string()}>
+        Panen
+      </Link>,
       "harvest",
       <DollarOutlined />
     ),
@@ -66,7 +85,12 @@ const BurgerMenu = () => {
         style={{ position: "fixed", top: 16, left: 16, zIndex: 1000 }}
       />
       <Drawer title="BOSS" placement="left" onClose={onClose} open={open}>
-        <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]} items={items} />
+        <Menu
+          theme="light"
+          mode="inline"
+          defaultSelectedKeys={["1"]}
+          items={items}
+        />
       </Drawer>
     </>
   );

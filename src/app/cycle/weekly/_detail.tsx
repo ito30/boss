@@ -1,9 +1,9 @@
+import { Descriptions, DescriptionsProps } from "antd";
+import { useState } from "react";
 import { Modal } from "@/components/modal";
 import formatRupiah from "@/libs/formatRupiah";
 import { InfoCircleOutlined } from "@ant-design/icons";
-import { Descriptions, DescriptionsProps } from "antd";
 import Link from "next/link";
-import { useState } from "react";
 
 const CycleWeeklyDetail = ({ data }: { data?: CycleWeeklyType }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

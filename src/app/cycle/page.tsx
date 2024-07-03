@@ -14,17 +14,16 @@ import { Option } from "@/components/select";
 import Link from "next/link";
 import { RoutePaths } from "@/routes/routePaths";
 import { useSelectedPond } from "@/context/SelectedPondContext";
-import { CYCLE_WEEKLY_DATA } from "@/data/cycle";
-import CycleWeeklyDetail from "./_detail";
+import { CYCLE_DATA } from "@/data/cycle";
 
-const showDeleteConfirm = (id: number, age: number) => {
+const showDeleteConfirm = (id: string, name: string) => {
   confirm({
     title: "Hapus kolam?",
     okType: "danger",
     content: (
       <p>
-        Apakah anda yakin akan menghapus data pekan ke-
-        <span className="font-semibold">{age}</span>?
+        Apakah anda yakin akan menghapus data
+        <span className="font-semibold">{name}</span>?
       </p>
     ),
     onOk() {
@@ -33,44 +32,30 @@ const showDeleteConfirm = (id: number, age: number) => {
   });
 };
 
-const CycleWeekly = () => {
+const Cycle = () => {
   const { selectedPond } = useSelectedPond();
 
-  const columns: TableColumnsType<CycleWeeklyType> = [
+  const columns: TableColumnsType<CycleType> = [
     {
-      title: "Pekan / Umur",
-      dataIndex: "age",
-      key: "age",
+      title: "Nama Siklus",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: "Berat Ikan (gr)",
-      dataIndex: "fishWeight",
-      key: "fishWeight",
-    },
-    {
-      title: "Sisa Ikan Hidup",
-      dataIndex: "remainingFish",
-      key: "remainingFish",
-    },
-    {
-      title: "Total Bobot Ikan (kg)",
-      dataIndex: "totalFishWeight",
-      key: "totalFishWeight",
-      render: (_, record) => record.totalFishWeight / 1000,
+      title: "Nama Kolam",
+      dataIndex: "fishPondName",
+      key: "fishPondName",
     },
     {
       title: "Action",
       key: "action",
       render: (_, record) => (
         <Space size="small">
-          <CycleWeeklyDetail
-            data={CYCLE_WEEKLY_DATA.find((item) => item.id === record.id)}
-          />
           <Link href={RoutePaths.cycleEdit.fmt(record.id)}>
             <EditOutlined />
           </Link>
           <Link
-            onClick={() => showDeleteConfirm(record.id, record.age)}
+            onClick={() => showDeleteConfirm(record.id, record.name)}
             href="#"
           >
             <DeleteOutlined />
@@ -89,27 +74,12 @@ const CycleWeekly = () => {
             title: <Link href={RoutePaths.home.string()}>Home</Link>,
           },
           {
-            title: "Siklus",
+            title: "Siklus Panen",
           },
         ]}
       />
 
       <div className="mb-3 mt-4 flex w-full justify-end">
-        <div className="mr-auto">
-          <span>Pilih Siklus: </span>
-          <Select
-            // value={orderType}
-            placeholder="Pilih Siklus"
-            // onChange={handleSetType}
-          >
-            <Option value="">Semua</Option>
-            {CYCLE_WEEKLY_DATA.map((data) => (
-              <Option key={data.cycleId} value={data.cycleId}>
-                {data.cycleId}
-              </Option>
-            ))}
-          </Select>
-        </div>
         <Link href={RoutePaths.cycleAdd.string()}>
           <Button type="default">Tambah</Button>
         </Link>
@@ -117,11 +87,11 @@ const CycleWeekly = () => {
 
       <Table
         columns={columns}
-        dataSource={CYCLE_WEEKLY_DATA}
+        dataSource={CYCLE_DATA}
         className="overflow-auto"
       />
     </div>
   );
 };
 
-export default CycleWeekly;
+export default Cycle;
