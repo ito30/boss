@@ -14,7 +14,7 @@ import Link from "next/link";
 import { RoutePaths } from "@/routes/routePaths";
 import { POND_DATA } from "@/data/pond";
 
-const showDeleteConfirm = (id: number, name: string) => {
+const showDeleteConfirm = (id: string, name: string) => {
   confirm({
     title: "Hapus kolam?",
     okType: "danger",

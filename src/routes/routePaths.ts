@@ -18,6 +18,7 @@ export class RoutePaths {
   static readonly cycle = new RoutePaths("/cycle");
   static readonly cycleAdd = new RoutePaths("/cycle/add");
   static readonly cycleEdit = new RoutePaths("/cycle/%s/edit");
+  static readonly harvest = new RoutePaths("/harvest");
 
   fmt(key: string | number): string {
     if (typeof key === "number") {

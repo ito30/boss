@@ -5,7 +5,7 @@ type CycleWeeklyType = {
   fishWeight: number;
   feedPercentage: number;
   remainingFish?: number;
-  totalDeath?: number;
+  totalDeath?: integer;
   totalFishWeight: number;
   totalFeedDaily: number;
   totalFeedPrice: number;

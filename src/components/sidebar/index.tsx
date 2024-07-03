@@ -6,11 +6,10 @@ import {
   EnvironmentOutlined,
   CloudSyncOutlined,
   DollarOutlined,
-  BulbFilled,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { RoutePaths } from "@/routes/routePaths";
-const { Header, Content, Footer, Sider } = Layout;
+const { Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
 

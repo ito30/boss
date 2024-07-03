@@ -1,5 +1,5 @@
 type PondType = {
-  id: number;
+  id: string;
   name: string;
   diameter: number;
   height: number;

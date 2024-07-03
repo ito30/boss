@@ -6,14 +6,17 @@ import {
   Space,
   Table,
   TableColumnsType,
-  theme,
 } from "antd";
 import { confirm } from "@/components/modal";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import Link from "next/link";
 import { RoutePaths } from "@/routes/routePaths";
 import { useSelectedPond } from "@/context/SelectedPondContext";
 import { CYCLE_WEEKLY_DATA } from "@/data/cycle";
+import CycleWeeklyDetail from "./_detail";
 
 const showDeleteConfirm = (id: number, age: number) => {
   confirm({
@@ -31,80 +34,47 @@ const showDeleteConfirm = (id: number, age: number) => {
   });
 };
 
-const columns: TableColumnsType<CycleWeeklyType> = [
-  {
-    title: "Pekan / Umur",
-    dataIndex: "age",
-    key: "age",
-  },
-  {
-    title: "Berat Ikan (gr)",
-    dataIndex: "fishWeight",
-    key: "fishWeight",
-  },
-  {
-    title: "Konsumsi Pakan (%)",
-    dataIndex: "feedPercentage",
-    key: "feedPercentage",
-  },
-  {
-    title: "Sisa Ikan Hidup",
-    dataIndex: "remainingFish",
-    key: "remainingFish",
-  },
-  {
-    title: "Kematian per Pekan",
-    dataIndex: "totalDeath",
-    key: "totalDeath",
-  },
-  {
-    title: "Total Bobot Ikan (kg)",
-    dataIndex: "totalFishWeight",
-    key: "totalFishWeight",
-    render: (_, record) => record.totalFishWeight / 1000,
-  },
-  {
-    title: "Total Konsumsi Pakan (kg)",
-    dataIndex: "totalFeedDaily",
-    key: "totalFeedDaily",
-    render: (_, record) => record.totalFeedDaily / 1000,
-  },
-  {
-    title: "Biaya Pakan Pekan ini",
-    dataIndex: "totalFeedPrice",
-    key: "totalFeedPrice",
-  },
-  {
-    title: "Pernah dipanen?",
-    dataIndex: "isHarvested",
-    key: "isHarvested",
-    render: (_, record) => (record.isHarvested ? "Ya" : "Tidak"),
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, record) => (
-      <Space size="middle">
-        <Link href={RoutePaths.cycleEdit.fmt(record.id)}>
-          <EditOutlined />
-        </Link>
-        <Button
-          type="text"
-          danger
-          onClick={() => showDeleteConfirm(record.id, record.age)}
-        >
-          <DeleteOutlined />
-        </Button>
-      </Space>
-    ),
-  },
-];
-
 const CycleWeekly = () => {
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
   const { selectedPond } = useSelectedPond();
+
+  const columns: TableColumnsType<CycleWeeklyType> = [
+    {
+      title: "Pekan / Umur",
+      dataIndex: "age",
+      key: "age",
+    },
+    {
+      title: "Berat Ikan (gr)",
+      dataIndex: "fishWeight",
+      key: "fishWeight",
+    },
+    {
+      title: "Sisa Ikan Hidup",
+      dataIndex: "remainingFish",
+      key: "remainingFish",
+    },
+    {
+      title: "Total Bobot Ikan (kg)",
+      dataIndex: "totalFishWeight",
+      key: "totalFishWeight",
+      render: (_, record) => record.totalFishWeight / 1000,
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space size="small">
+          <CycleWeeklyDetail data={CYCLE_WEEKLY_DATA.find((item) => item.id === record.id)}/>
+          <Link href={RoutePaths.cycleEdit.fmt(record.id)}>
+            <EditOutlined />
+          </Link>
+          <Link onClick={() => showDeleteConfirm(record.id, record.age)} href="#">
+            <DeleteOutlined />
+          </Link>
+        </Space>
+      ),
+    },
+  ];
 
   return (
     <div>
@@ -126,7 +96,11 @@ const CycleWeekly = () => {
         </Link>
       </div>
 
-      <Table columns={columns} dataSource={CYCLE_WEEKLY_DATA} className="overflow-auto" />
+      <Table
+        columns={columns}
+        dataSource={CYCLE_WEEKLY_DATA}
+        className="overflow-auto"
+      />
     </div>
   );
 };
