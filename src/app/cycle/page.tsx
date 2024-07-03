@@ -3,15 +3,14 @@
 import {
   Breadcrumb,
   Button,
+  Select,
   Space,
   Table,
   TableColumnsType,
 } from "antd";
 import { confirm } from "@/components/modal";
-import {
-  EditOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Option } from "@/components/select";
 import Link from "next/link";
 import { RoutePaths } from "@/routes/routePaths";
 import { useSelectedPond } from "@/context/SelectedPondContext";
@@ -64,11 +63,16 @@ const CycleWeekly = () => {
       key: "action",
       render: (_, record) => (
         <Space size="small">
-          <CycleWeeklyDetail data={CYCLE_WEEKLY_DATA.find((item) => item.id === record.id)}/>
+          <CycleWeeklyDetail
+            data={CYCLE_WEEKLY_DATA.find((item) => item.id === record.id)}
+          />
           <Link href={RoutePaths.cycleEdit.fmt(record.id)}>
             <EditOutlined />
           </Link>
-          <Link onClick={() => showDeleteConfirm(record.id, record.age)} href="#">
+          <Link
+            onClick={() => showDeleteConfirm(record.id, record.age)}
+            href="#"
+          >
             <DeleteOutlined />
           </Link>
         </Space>
@@ -91,6 +95,21 @@ const CycleWeekly = () => {
       />
 
       <div className="mb-3 mt-4 flex w-full justify-end">
+        <div className="mr-auto">
+          <span>Tipe Order: </span>
+          <Select
+            // value={orderType}
+            placeholder="Pilih Siklus"
+            // onChange={handleSetType}
+          >
+            <Option value="">Semua</Option>
+            {CYCLE_WEEKLY_DATA.map((data) => (
+              <Option key={data.cycleId} value={data.cycleId}>
+                {data.cycleId}
+              </Option>
+            ))}
+          </Select>
+        </div>
         <Link href={RoutePaths.cycleAdd.string()}>
           <Button type="default">Tambah</Button>
         </Link>

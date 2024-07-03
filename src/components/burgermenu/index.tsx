@@ -38,12 +38,12 @@ const BurgerMenu = () => {
       <EnvironmentOutlined />
     ),
     getItem(
-      <Link onClick={() => setOpen(false)} href={RoutePaths.cycle.string()}>Cycle</Link>,
+      <Link onClick={() => setOpen(false)} href={RoutePaths.cycle.string()}>Siklus</Link>,
       "cycle",
       <CloudSyncOutlined />
     ),
     getItem(
-      <Link onClick={() => setOpen(false)} href={RoutePaths.harvest.string()}>Harvest</Link>,
+      <Link onClick={() => setOpen(false)} href={RoutePaths.harvest.string()}>Panen</Link>,
       "harvest",
       <DollarOutlined />
     ),
