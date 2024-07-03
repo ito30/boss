@@ -19,6 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <title>BOSS LELE</title>
       <body className={inter.className}>
         <Layout style={{ minHeight: "100vh" }}>
           <BurgerMenu />
